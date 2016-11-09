@@ -1,0 +1,13 @@
+.DS_Store
+*.dSYM
+*.gcda
+*.gcno
+*.gcov
+*.plist
+Doxyfile
+Icon?
+life-tests
+RunLife
+RunLife.tmp
+TestLife
+TestLife.tmp
