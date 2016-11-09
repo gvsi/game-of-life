@@ -40,8 +40,8 @@ public:
     _alive(alive)
   {};
   virtual void evolve(int n) = 0;
-  virtual AbstractCell* clone() const;
-  virtual ~AbstractCell();
+  virtual AbstractCell* clone() const = 0;
+  virtual ~AbstractCell() {};
 };
 
 class ConwayCell : AbstractCell {
@@ -58,7 +58,6 @@ public:
   	return new ConwayCell(_alive);
   };
 
-//  ~ConwayCell(){};
 };
 
 class FredkinCell : AbstractCell {
@@ -71,7 +70,7 @@ public:
     {};
 
   void evolve(int n) {
-  	
+
   };
 
   FredkinCell* clone() const {
