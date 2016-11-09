@@ -22,4 +22,15 @@ using namespace std;
 
 TEST(LifeFixture, test) {
     Life<int> x;
-    ASSERT_TRUE(x.dummy());}
+    ASSERT_TRUE(x.dummy());
+}
+
+// TEST(LifeFixture, test2) {
+// 	Life<ConwayCell> x(8,8);
+// 	ASSERT_TRUE(true);
+// }
+
+TEST(ConwayCellFixture, constructor) {
+	ConwayCell cc;
+	ASSERT_TRUE(true);
+}

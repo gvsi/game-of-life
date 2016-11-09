@@ -40,6 +40,8 @@ public:
     _alive(alive)
   {};
   virtual void evolve(int n) = 0;
+  virtual AbstractCell* clone() const;
+  virtual ~AbstractCell();
 };
 
 class ConwayCell : AbstractCell {
@@ -47,6 +49,16 @@ public:
   ConwayCell(bool alive = false) :
     AbstractCell(alive)
     {};
+
+  void evolve(int n) {
+
+  };
+
+  ConwayCell* clone() const {
+  	return new ConwayCell(_alive);
+  };
+
+//  ~ConwayCell(){};
 };
 
 class FredkinCell : AbstractCell {
@@ -57,15 +69,40 @@ public:
     AbstractCell(alive),
     _age(age)
     {};
+
+  void evolve(int n) {
+  	
+  };
+
+  FredkinCell* clone() const {
+  	return new FredkinCell(_alive, _age);
+  };
+
+//  ~FredkinCell(){};
 };
 
 class Cell {
 private:
   AbstractCell* _p;
 public:
+
+  Cell() :
+  	_p(nullptr)
+  {};
+
   Cell(AbstractCell* p) :
     _p(p)
   {};
+
+  Cell(const Cell& rhs) :
+  	_p(rhs._p == nullptr? nullptr : rhs._p->clone())
+  {};
+
+  Cell& operator = (const Cell& ac) {
+  	_p = ac._p->clone();
+  	return *this;
+  };
+
   ~Cell() {
     delete _p;
   };
