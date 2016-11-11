@@ -92,7 +92,7 @@ RunLife: Life.h RunLife.c++
 	-$(CLANG-CHECK) -extra-arg=-std=c++11 -analyze RunLife.c++  --
 
 RunLife.tmp: RunLife
-	./RunLife > RunLife.tmp
+	./RunLife < RunLife.in > RunLife.tmp
 	# diff RunLife.tmp RunLife.out
 
 TestLife: Life.h TestLife.c++
