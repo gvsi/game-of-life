@@ -29,6 +29,10 @@ int main () {
     Simulate 12 evolutions.
     Print every grid (i.e. 0, 1, 2, 3, ... 12)
     */
+    int rows, cols;
+    cin >> rows >> cols;
+    Life<ConwayCell> l1(cin, rows, cols);
+    cout << l1 << endl;
 
     // ----------------------
     // Life<ConwayCell> 20x29
@@ -39,6 +43,10 @@ int main () {
     Simulate 28 evolutions.
     Print every 4th grid (i.e. 0, 4, 8, ... 28)
     */
+
+    cin >> rows >> cols;
+    Life<ConwayCell> l2(cin, rows, cols);
+    cout << l2 << endl;
 
     // -----------------------
     // Life<ConwayCell> 109x69
@@ -55,6 +63,10 @@ int main () {
     Print the 2500th grid.
     */
 
+    cin >> rows >> cols;
+    Life<ConwayCell> l3(cin, rows, cols);
+    cout << l3 << endl;
+
     // -----------------------
     // Life<FredkinCell> 20x20
     // -----------------------
@@ -65,6 +77,10 @@ int main () {
     Print every grid (i.e. 0, 1, 2, ... 5)
     */
 
+    cin >> rows >> cols;
+    // Life<FredkinCell> l4(cin, rows, cols);
+    // cout << l4 << endl;
+
     // ----------------
     // Life<Cell> 20x20
     // ----------------
@@ -74,5 +90,8 @@ int main () {
     Simulate 5 evolutions.
     Print every grid (i.e. 0, 1, 2, ... 5)
     */
+
+    cin >> rows >> cols;
+    // Life<Cell> l5(cin, rows, cols);
 
     return 0;}
