@@ -116,12 +116,14 @@ public:
   void evolve(int n) {
     if (_alive && (n == 0 || n == 2 || n == 4)) {
       _alive = false;
-      _age = 0;
       _symbol = '-';
     } else if (!_alive && (n == 1 || n == 3)) {
       _alive = true;
-      _age = 0;
-      _symbol = '0';
+      if (_age >= 10) {
+        _symbol = '+';
+      } else {
+        _symbol = '0' + _age; // converts int to char
+      }
     } else if (_alive) {
       ++_age;
       if (_age >= 10) {
