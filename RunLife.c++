@@ -78,8 +78,8 @@ int main () {
     */
 
     cin >> rows >> cols;
-    // Life<FredkinCell> l4(cin, rows, cols);
-    // cout << l4 << endl;
+    Life<FredkinCell> l4(cin, rows, cols);
+    cout << l4 << endl;
 
     // ----------------
     // Life<Cell> 20x20
@@ -92,6 +92,7 @@ int main () {
     */
 
     cin >> rows >> cols;
-    // Life<Cell> l5(cin, rows, cols);
+    Life<Cell> l5(cin, rows, cols);
+    cout << l5 << endl;
 
     return 0;}

@@ -14,6 +14,8 @@
 
 #include "Life.h"
 
+#include <sstream>
+
 using namespace std;
 
 // ----
@@ -23,6 +25,14 @@ using namespace std;
 TEST(LifeFixture, test) {
     // Life<int> x;
     ASSERT_TRUE(true);
+}
+
+TEST(LifeFixture, test2) {
+	istringstream i("....\n****\n");
+	Life<ConwayCell> l(i, 2,4);
+	ostringstream w;
+	w << l;
+	ASSERT_EQ("....\n****\n", w.str());
 }
 
 // TEST(LifeFixture, test2) {

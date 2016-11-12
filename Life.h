@@ -12,17 +12,23 @@
 
 using namespace std;
 
+class FredkinCell;
+
 class AbstractCell {
 friend ostream& operator <<(ostream& o, const AbstractCell& ac) {
   return ac.print(o);
 }
 protected:
   bool _alive;
+  char _symbol;
 public:
   AbstractCell(bool alive) :
-    _alive(alive)
+    _alive(alive),
+    _symbol('/')
   {};
+  virtual void flagNeighbors(vector<vector<int>>& neighborCounts, int row, int col) = 0;
   virtual void evolve(int n) = 0;
+  virtual bool isAlive() const = 0;
   virtual AbstractCell* clone() const = 0;
   virtual ~AbstractCell() {};
   virtual ostream& print(ostream& o) const = 0;
@@ -35,30 +41,64 @@ friend ostream& operator <<(ostream& o, const ConwayCell& cc) {
 public:
   ConwayCell(bool alive = false) :
     AbstractCell(alive)
-    {};
+  {
+    _symbol = _alive? '*' : '.';
+  };
+
+  ConwayCell(const AbstractCell* rhs) : AbstractCell((*((ConwayCell*)(rhs)))._alive) {
+    _symbol = (*((ConwayCell*)(rhs)))._alive? '*' : '.';
+    delete rhs;
+  };
+
+  void flagNeighbors(vector<vector<int>>& neighborCounts, int row, int col) {
+    if(!_alive)
+      return;
+
+    bool leftWall;
+    bool rightWall;
+    bool topWall;
+    bool bottomWall;
+    if(row == 0)
+      topWall = true;
+    if(col == 0)
+      leftWall = true;
+    if((size_t)row == neighborCounts.size() -1)
+      bottomWall = true;
+    if((size_t)col == neighborCounts[0].size() -1)
+      rightWall = true;
+
+    if(!leftWall && !topWall) {
+      if (neighborCounts[col])
+    }
+  }
 
   void evolve(int n) {
 
+  };
+
+  bool calculateStatus() const {
+    if (_symbol == '*') 
+      return true;
+    else
+      return false;
+  }
+
+  ConwayCell& operator = (const ConwayCell& rhs) {
+    _alive = rhs._alive;
+    _symbol = rhs._symbol;
+    return *this;
+  };
+
+  ConwayCell(const FredkinCell& rhs) : AbstractCell(false) {
   };
 
   AbstractCell* clone() const {
   	return new ConwayCell(_alive);
   };
 
-  ConwayCell& operator =(ConwayCell* cp) {
-    cout << "called";
-    _alive = cp->_alive;
-    return *this;
-  }
-
   ostream& print(ostream& o) const {
-    if (_alive) {
-      o << "*";
-    } else {
-      o << ".";
-    }
-    return o;
-  }
+    return o << _symbol;
+  };
 };
 
 class FredkinCell : AbstractCell {
@@ -68,31 +108,39 @@ friend ostream& operator <<(ostream& o, const FredkinCell& fc) {
 private:
   int _age;
 public:
-  FredkinCell(bool alive = false, int age = 0) :
+  FredkinCell(bool alive = false) :
     AbstractCell(alive),
-    _age(age)
-    {};
+    _age(0)
+  {
+    _symbol = _alive? '0' : '-';
+  };
 
   void evolve(int n) {
 
   };
 
+  bool calculateStatus() const {
+    if (_symbol != '-' ) 
+      return true;
+    else
+      return false;
+  }
+
+  void flagNeighbors(vector<vector<int>>& neighborCounts, int row, int col)
+  {
+    
+  }
+
+  FredkinCell(const ConwayCell& rhs) : AbstractCell(false), _age(0)
+  {};
+
   AbstractCell* clone() const {
-  	return new FredkinCell(_alive, _age);
+  	return new FredkinCell(_alive);
   };
 
   ostream& print(ostream& o) const {
-    if (_alive) {
-      if (_age >= 10) {
-        o << "+";
-      } else {
-        o << _age;
-      }
-    } else {
-      o << "-";
-    }
-    return o;
-  }
+    return o << _symbol;
+  };
 };
 
 class Cell {
@@ -117,27 +165,31 @@ public:
   	return *this;
   };
 
+  bool calculateStatus() const {
+    return _p->calculateStatus();
+  }
+
   ~Cell() {
     delete _p;
   };
 
   friend ostream& operator <<(ostream& o, const Cell& c) {
-    o << *(c._p);
-    return o;
-  }
+    return o << *(c._p);
+  };
 };
 
 template <typename T>
 class Life {
 private:
-  vector<vector<T*>> _grid;
+  vector<vector<T>> _grid;
   vector<vector<int>> _neighborCounts;
   int _generation, _population;
 public:
   bool dummy () {
     return true;}
+
   Life(istream& input, int rows, int cols) :
-  _grid(vector<vector<T*>>(rows, vector<T*>(cols))),
+  _grid(vector<vector<T>>(rows, vector<T>(cols))),
   _neighborCounts(vector<vector<int>>(rows, vector<int>(cols, 0))),
   _generation(0),
   _population(0)
@@ -148,38 +200,37 @@ public:
         input >> t;
 
         if (t == '.') {
-          ConwayCell cc = ConwayCell(false);
-          _grid[r][c] = cc.clone();
+          _grid[r][c] = T((AbstractCell*)(new ConwayCell(false)));
         } else if (t == '*') {
-          ConwayCell cc = ConwayCell(true);
-          _grid[r][c] = cc.clone();
+          _grid[r][c] = T((AbstractCell*)(new ConwayCell(true)));
         } else if (t == '+') {
-          FredkinCell fc = FredkinCell(true);
-          _grid[r][c] = fc.clone();
+          _grid[r][c] = T((AbstractCell*)(new FredkinCell(true)));
         } else if (t == '-') {
-          FredkinCell fc = FredkinCell(false);
-          _grid[r][c] = fc.clone();
+          _grid[r][c] = T((AbstractCell*)(new FredkinCell(false)));
         } else {
-          FredkinCell fc = FredkinCell(true, 0);
-          _grid[r][c] = fc.clone();
+          _grid[r][c] = T((AbstractCell*)(new FredkinCell(true)));
         }
       }
     }
-    cout << *this;
   };
 
   friend ostream& operator <<(ostream& o, const Life& l) {
     for (size_t r = 0; r < l._grid.size(); ++r) {
       for (size_t c = 0; c < l._grid[0].size(); ++c) {
         o << l._grid[r][c];
-        // o << r << c << " ";
       }
       o << endl;
     }
     return o;
-  }
+  };
 
   void simulateGeneration() {
-  }
+    for (size_t r = 0; r < _grid.size(); ++r) {
+      for (size_t c = 0; c < _grid[0].size(); ++c) {
+        _grid[r][c].calculateStatus()
+
+      }
+    }
+  };
 };
 #endif // Life_h
