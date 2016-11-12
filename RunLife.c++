@@ -107,7 +107,9 @@ int main () {
 
     cin >> rows >> cols;
     Life<Cell> l5(cin, rows, cols);
-    cout << l5 << endl;
-    // l5.simulateGeneration();
+    for (int i = 0; i <= 5; ++i) {
+      cout << l5 << endl;
+      l5.simulateGeneration();
+    }
 
     return 0;}

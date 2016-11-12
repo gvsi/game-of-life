@@ -27,7 +27,7 @@ public:
     _symbol('/')
   {};
   virtual void flag(vector<vector<int>>& neighborCounts, int row, int col) = 0;
-  virtual void evolve(int n) = 0;
+  virtual bool evolve(int n, int& pop) = 0;
   virtual bool calculateStatus() const = 0;
   virtual AbstractCell* clone() const = 0;
   virtual ~AbstractCell() {};
@@ -54,14 +54,18 @@ public:
     neighborCounts[row][col] += 1;
   }
 
-  void evolve(int n) {
+  bool evolve(int n, int& pop) {
     if (_alive && (n < 2 || n > 3)) {
       _alive = false;
       _symbol = '.';
     } else if (!_alive && n == 3) {
       _alive = true;
       _symbol = '*';
+      ++pop;
     }
+    else if(_alive)
+      ++pop;
+    return false;
   };
 
   bool calculateStatus() const {
@@ -113,12 +117,13 @@ public:
     delete rhs;
   };
 
-  void evolve(int n) {
+  bool evolve(int n, int& pop) {
     if (_alive && (n == 0 || n == 2 || n == 4)) {
       _alive = false;
       _symbol = '-';
     } else if (!_alive && (n == 1 || n == 3)) {
       _alive = true;
+      ++pop;
       if (_age >= 10) {
         _symbol = '+';
       } else {
@@ -126,12 +131,14 @@ public:
       }
     } else if (_alive) {
       ++_age;
+      ++pop;
       if (_age >= 10) {
         _symbol = '+';
       } else {
         _symbol = '0' + _age; // converts int to char
       }
     }
+    return _age == 2;
   };
 
   bool calculateStatus() const {
@@ -189,8 +196,12 @@ public:
     _p->flag(neighborCounts, row, col);
   }
 
-  void evolve(int n) {
-    _p->evolve(n);
+  void evolve(int n, int& pop) {
+    bool convert = _p->evolve(n, pop);
+    if(convert) {
+      delete _p;
+      _p = new ConwayCell(true);
+    }
   }
 
   ~Cell() {
@@ -256,7 +267,6 @@ public:
     for (size_t r = 0; r < _grid.size(); ++r) {
       for (size_t c = 0; c < _grid[0].size(); ++c) {
         if (_grid[r][c].calculateStatus()) {
-          ++_population;
 
           if (r-1 > 0) // top
             _neighborCounts[r-1][c] += 1;
@@ -282,7 +292,7 @@ public:
     // Second pass: evolve each cell based on neighborCounts
     for (size_t r = 0; r < _grid.size(); ++r) {
       for (size_t c = 0; c < _grid[0].size(); ++c) {
-        _grid[r][c].evolve(_neighborCounts[r][c]);
+        _grid[r][c].evolve(_neighborCounts[r][c], _population);
         _neighborCounts[r][c] = 0;
       }
     }
