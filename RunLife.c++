@@ -32,7 +32,10 @@ int main () {
     int rows, cols;
     cin >> rows >> cols;
     Life<ConwayCell> l1(cin, rows, cols);
-    cout << l1 << endl;
+    for (int i = 0; i <= 12; ++i) {
+      cout << l1 << endl;
+      l1.simulateGeneration();
+    }
 
     // ----------------------
     // Life<ConwayCell> 20x29
@@ -46,7 +49,11 @@ int main () {
 
     cin >> rows >> cols;
     Life<ConwayCell> l2(cin, rows, cols);
-    cout << l2 << endl;
+    for (int i = 0; i <= 28; ++i) {
+      if (i % 4 == 0)
+        cout << l2 << endl;
+      l2.simulateGeneration();
+    }
 
     // -----------------------
     // Life<ConwayCell> 109x69
@@ -66,6 +73,11 @@ int main () {
     cin >> rows >> cols;
     Life<ConwayCell> l3(cin, rows, cols);
     cout << l3 << endl;
+    for (int i = 0; i <= 2500; ++i) {
+      if (i < 10 || i == 283 || i == 323 || i == 2500)
+        cout << l3 << endl;
+      l3.simulateGeneration();
+    }
 
     // -----------------------
     // Life<FredkinCell> 20x20
@@ -80,6 +92,7 @@ int main () {
     cin >> rows >> cols;
     Life<FredkinCell> l4(cin, rows, cols);
     cout << l4 << endl;
+    // l4.simulateGeneration();
 
     // ----------------
     // Life<Cell> 20x20
@@ -94,5 +107,6 @@ int main () {
     cin >> rows >> cols;
     Life<Cell> l5(cin, rows, cols);
     cout << l5 << endl;
+    // l5.simulateGeneration();
 
     return 0;}

@@ -26,9 +26,9 @@ public:
     _alive(alive),
     _symbol('/')
   {};
-  virtual void flagNeighbors(vector<vector<int>>& neighborCounts, int row, int col) = 0;
+  virtual void flag(vector<vector<int>>& neighborCounts, int row, int col) = 0;
   virtual void evolve(int n) = 0;
-  virtual bool isAlive() const = 0;
+  virtual bool calculateStatus() const = 0;
   virtual AbstractCell* clone() const = 0;
   virtual ~AbstractCell() {};
   virtual ostream& print(ostream& o) const = 0;
@@ -50,34 +50,22 @@ public:
     delete rhs;
   };
 
-  void flagNeighbors(vector<vector<int>>& neighborCounts, int row, int col) {
-    if(!_alive)
-      return;
-
-    bool leftWall;
-    bool rightWall;
-    bool topWall;
-    bool bottomWall;
-    if(row == 0)
-      topWall = true;
-    if(col == 0)
-      leftWall = true;
-    if((size_t)row == neighborCounts.size() -1)
-      bottomWall = true;
-    if((size_t)col == neighborCounts[0].size() -1)
-      rightWall = true;
-
-    if(!leftWall && !topWall) {
-      if (neighborCounts[col])
-    }
+  void flag(vector<vector<int>>& neighborCounts, int row, int col) {
+    neighborCounts[row][col] += 1;
   }
 
   void evolve(int n) {
-
+    if (_alive && (n < 2 || n > 3)) {
+      _alive = false;
+      _symbol = '.';
+    } else if (!_alive && n == 3) {
+      _alive = true;
+      _symbol = '*';
+    }
   };
 
   bool calculateStatus() const {
-    if (_symbol == '*') 
+    if (_symbol == '*')
       return true;
     else
       return false;
@@ -116,19 +104,34 @@ public:
   };
 
   void evolve(int n) {
-
+    if (_alive && (n == 0 || n == 2 || n == 4)) {
+      _alive = false;
+      _age = 0;
+      _symbol = '-';
+    } else if (!_alive && (n == 1 || n == 3)) {
+      _alive = true;
+      _age = 0;
+      _symbol = '0';
+    } else if (_alive) {
+      ++_age;
+      if (_age >= 10) {
+        _symbol = '+';
+      } else {
+        _symbol = '0' + _age; // converts int to char
+      }
+    }
   };
 
   bool calculateStatus() const {
-    if (_symbol != '-' ) 
+    if (_symbol != '-' )
       return true;
     else
       return false;
   }
 
-  void flagNeighbors(vector<vector<int>>& neighborCounts, int row, int col)
+  void flag(vector<vector<int>>& neighborCounts, int row, int col)
   {
-    
+    return;
   }
 
   FredkinCell(const ConwayCell& rhs) : AbstractCell(false), _age(0)
@@ -169,6 +172,15 @@ public:
     return _p->calculateStatus();
   }
 
+  void flag(vector<vector<int>>& neighborCounts, int row, int col)
+  {
+    _p->flag(neighborCounts, row, col);
+  }
+
+  void evolve(int n) {
+    _p->evolve(n);
+  }
+
   ~Cell() {
     delete _p;
   };
@@ -203,18 +215,22 @@ public:
           _grid[r][c] = T((AbstractCell*)(new ConwayCell(false)));
         } else if (t == '*') {
           _grid[r][c] = T((AbstractCell*)(new ConwayCell(true)));
+          ++_population;
         } else if (t == '+') {
           _grid[r][c] = T((AbstractCell*)(new FredkinCell(true)));
+          ++_population;
         } else if (t == '-') {
           _grid[r][c] = T((AbstractCell*)(new FredkinCell(false)));
         } else {
           _grid[r][c] = T((AbstractCell*)(new FredkinCell(true)));
+          ++_population;
         }
       }
     }
   };
 
   friend ostream& operator <<(ostream& o, const Life& l) {
+    cout << "Generation = " << l._generation << ", Population = " << l._population << "." << endl;
     for (size_t r = 0; r < l._grid.size(); ++r) {
       for (size_t c = 0; c < l._grid[0].size(); ++c) {
         o << l._grid[r][c];
@@ -225,12 +241,50 @@ public:
   };
 
   void simulateGeneration() {
+    _population = 0; // resets Population
+
+    // First pass: calculate neighborCounts
     for (size_t r = 0; r < _grid.size(); ++r) {
       for (size_t c = 0; c < _grid[0].size(); ++c) {
-        _grid[r][c].calculateStatus()
+        if (_grid[r][c].calculateStatus()) {
+          ++_population;
 
+          if (r-1 > 0) // top
+            _neighborCounts[r-1][c] += 1;
+          if (c+1 < _grid[0].size() - 1) // right
+            _neighborCounts[r][c+1] += 1;
+          if (r+1 < _grid.size() - 1) // bottom
+            _neighborCounts[r+1][c] += 1;
+          if (c-1 > 0) // left
+            _neighborCounts[r][c-1] += 1;
+
+          if (r-1 > 0 && c-1 > 0) // top left
+            _grid[r-1][c-1].flag(_neighborCounts, r-1, c-1);
+          if (r-1 > 0 && c+1 < _grid[0].size() - 1) // top right
+            _grid[r-1][c+1].flag(_neighborCounts, r-1, c+1);
+          if (r+1 < _grid.size() - 1 && c+1 < _grid[0].size() - 1) // bottom right
+            _grid[r+1][c+1].flag(_neighborCounts, r+1, c+1);
+          if (r+1 < _grid.size() - 1 && c-1 > 0) // bottom left
+            _grid[r+1][c-1].flag(_neighborCounts, r+1, c-1);
+        }
       }
     }
+
+    // for (size_t r = 0; r < _neighborCounts.size(); ++r) {
+    //   for (size_t c = 0; c < _neighborCounts[0].size(); ++c) {
+    //     cout << _neighborCounts[r][c];
+    //   }
+    //   cout << endl;
+    // }
+
+    // Second pass: evolve each cell based on neighborCounts
+    for (size_t r = 0; r < _grid.size(); ++r) {
+      for (size_t c = 0; c < _grid[0].size(); ++c) {
+        _grid[r][c].evolve(_neighborCounts[r][c]);
+        _neighborCounts[r][c] = 0;
+      }
+    }
+    ++_generation;
   };
 };
 #endif // Life_h
