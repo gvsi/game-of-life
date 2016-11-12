@@ -34,7 +34,7 @@ public:
   virtual ostream& print(ostream& o) const = 0;
 };
 
-class ConwayCell : AbstractCell {
+class ConwayCell : public AbstractCell {
 friend ostream& operator <<(ostream& o, const ConwayCell& cc) {
   return cc.print(o);
 }
@@ -45,8 +45,8 @@ public:
     _symbol = _alive? '*' : '.';
   };
 
-  ConwayCell(const AbstractCell* rhs) : AbstractCell((*((ConwayCell*)(rhs)))._alive) {
-    _symbol = (*((ConwayCell*)(rhs)))._alive? '*' : '.';
+  ConwayCell(const ConwayCell* rhs) : AbstractCell(rhs->_alive) {
+    _symbol = rhs->_alive? '*' : '.';
     delete rhs;
   };
 
@@ -77,7 +77,7 @@ public:
     return *this;
   };
 
-  ConwayCell(const FredkinCell& rhs) : AbstractCell(false) {
+  ConwayCell(const FredkinCell* rhs) : AbstractCell(false) {
   };
 
   AbstractCell* clone() const {
@@ -87,9 +87,13 @@ public:
   ostream& print(ostream& o) const {
     return o << _symbol;
   };
+
+  ~ConwayCell()
+  {
+  };
 };
 
-class FredkinCell : AbstractCell {
+class FredkinCell : public AbstractCell {
 friend ostream& operator <<(ostream& o, const FredkinCell& fc) {
   return fc.print(o);
 }
@@ -101,6 +105,12 @@ public:
     _age(0)
   {
     _symbol = _alive? '0' : '-';
+  };
+
+  FredkinCell(const FredkinCell* rhs) : AbstractCell(rhs->_alive) {
+    _symbol = rhs->_alive? '0' : '-';
+    _age = 0;
+    delete rhs;
   };
 
   void evolve(int n) {
@@ -134,7 +144,7 @@ public:
     return;
   }
 
-  FredkinCell(const ConwayCell& rhs) : AbstractCell(false), _age(0)
+  FredkinCell(const ConwayCell* rhs) : AbstractCell(false), _age(0)
   {};
 
   AbstractCell* clone() const {
@@ -212,17 +222,14 @@ public:
         input >> t;
 
         if (t == '.') {
-          _grid[r][c] = T((AbstractCell*)(new ConwayCell(false)));
+          _grid[r][c] = T(new ConwayCell(false));
         } else if (t == '*') {
-          _grid[r][c] = T((AbstractCell*)(new ConwayCell(true)));
-          ++_population;
-        } else if (t == '+') {
-          _grid[r][c] = T((AbstractCell*)(new FredkinCell(true)));
+          _grid[r][c] = T(new ConwayCell(true));
           ++_population;
         } else if (t == '-') {
-          _grid[r][c] = T((AbstractCell*)(new FredkinCell(false)));
+          _grid[r][c] = T(new FredkinCell(false));
         } else {
-          _grid[r][c] = T((AbstractCell*)(new FredkinCell(true)));
+          _grid[r][c] = T(new FredkinCell(true));
           ++_population;
         }
       }
@@ -269,13 +276,6 @@ public:
         }
       }
     }
-
-    // for (size_t r = 0; r < _neighborCounts.size(); ++r) {
-    //   for (size_t c = 0; c < _neighborCounts[0].size(); ++c) {
-    //     cout << _neighborCounts[r][c];
-    //   }
-    //   cout << endl;
-    // }
 
     // Second pass: evolve each cell based on neighborCounts
     for (size_t r = 0; r < _grid.size(); ++r) {
