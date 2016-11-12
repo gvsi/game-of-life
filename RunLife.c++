@@ -72,7 +72,6 @@ int main () {
 
     cin >> rows >> cols;
     Life<ConwayCell> l3(cin, rows, cols);
-    cout << l3 << endl;
     for (int i = 0; i <= 2500; ++i) {
       if (i < 10 || i == 283 || i == 323 || i == 2500)
         cout << l3 << endl;
@@ -91,8 +90,10 @@ int main () {
 
     cin >> rows >> cols;
     Life<FredkinCell> l4(cin, rows, cols);
-    cout << l4 << endl;
-    // l4.simulateGeneration();
+    for (int i = 0; i <= 5; ++i) {
+      cout << l4 << endl;
+      l4.simulateGeneration();
+    }
 
     // ----------------
     // Life<Cell> 20x20
