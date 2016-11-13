@@ -111,9 +111,8 @@ public:
     _symbol = _alive? '0' : '-';
   };
 
-  FredkinCell(const FredkinCell* rhs) : AbstractCell(rhs->_alive) {
+  FredkinCell(const FredkinCell* rhs) : AbstractCell(rhs->_alive), _age(0) {
     _symbol = rhs->_alive? '0' : '-';
-    _age = 0;
     delete rhs;
   };
 
