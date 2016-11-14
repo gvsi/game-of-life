@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <gtest/gtest.h>
 
 #ifndef Life_h
 #define Life_h
@@ -91,10 +92,6 @@ public:
   ostream& print(ostream& o) const {
     return o << _symbol;
   };
-
-  ~ConwayCell()
-  {
-  };
 };
 
 class FredkinCell : public AbstractCell {
@@ -166,6 +163,10 @@ public:
 
 class Cell {
 private:
+  FRIEND_TEST(CellFixture, constructor1);
+  FRIEND_TEST(CellFixture, constructor2);
+  FRIEND_TEST(CellFixture, constructor3);
+  FRIEND_TEST(CellFixture, evolve9);
   AbstractCell* _p;
 public:
 
@@ -219,9 +220,6 @@ private:
   vector<vector<int>> _neighborCounts;
   int _generation, _population;
 public:
-  bool dummy () {
-    return true;}
-
   Life(istream& input, int rows, int cols) :
   _grid(vector<vector<T>>(rows, vector<T>(cols))),
   _neighborCounts(vector<vector<int>>(rows, vector<int>(cols, 0))),
@@ -249,7 +247,7 @@ public:
   };
 
   friend ostream& operator <<(ostream& o, const Life& l) {
-    cout << "Generation = " << l._generation << ", Population = " << l._population << "." << endl;
+    o << "Generation = " << l._generation << ", Population = " << l._population << "." << endl;
     for (size_t r = 0; r < l._grid.size(); ++r) {
       for (size_t c = 0; c < l._grid[0].size(); ++c) {
         o << l._grid[r][c];
@@ -263,26 +261,26 @@ public:
     _population = 0; // resets Population
 
     // First pass: calculate neighborCounts
-    for (size_t r = 0; r < _grid.size(); ++r) {
-      for (size_t c = 0; c < _grid[0].size(); ++c) {
+    for (int r = 0; r < (int)_grid.size(); ++r) {
+      for (int c = 0; c < (int)_grid[0].size(); ++c) {
         if (_grid[r][c].calculateStatus()) {
 
-          if (r-1 > 0) // top
+          if (r-1 >= 0) // top
             _neighborCounts[r-1][c] += 1;
-          if (c+1 < _grid[0].size() - 1) // right
+          if (c+1 <= _grid[0].size() - 1) // right
             _neighborCounts[r][c+1] += 1;
-          if (r+1 < _grid.size() - 1) // bottom
+          if (r+1 <= _grid.size() - 1) // bottom
             _neighborCounts[r+1][c] += 1;
-          if (c-1 > 0) // left
+          if (c-1 >= 0) // left
             _neighborCounts[r][c-1] += 1;
 
-          if (r-1 > 0 && c-1 > 0) // top left
+          if (r-1 >= 0 && c-1 >= 0) // top left
             _grid[r-1][c-1].flag(_neighborCounts, r-1, c-1);
-          if (r-1 > 0 && c+1 < _grid[0].size() - 1) // top right
+          if (r-1 >= 0 && c+1 <= _grid[0].size() - 1) // top right
             _grid[r-1][c+1].flag(_neighborCounts, r-1, c+1);
-          if (r+1 < _grid.size() - 1 && c+1 < _grid[0].size() - 1) // bottom right
+          if (r+1 <= _grid.size() - 1 && c+1 <= _grid[0].size() - 1) // bottom right
             _grid[r+1][c+1].flag(_neighborCounts, r+1, c+1);
-          if (r+1 < _grid.size() - 1 && c-1 > 0) // bottom left
+          if (r+1 <= _grid.size() - 1 && c-1 >= 0) // bottom left
             _grid[r+1][c-1].flag(_neighborCounts, r+1, c-1);
         }
       }
