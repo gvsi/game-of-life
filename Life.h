@@ -214,6 +214,7 @@ public:
   {};
 
   Cell& operator = (const Cell& ac) {
+    delete _p;
   	_p = ac._p->clone();
   	return *this;
   };
