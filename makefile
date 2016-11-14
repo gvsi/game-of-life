@@ -93,7 +93,7 @@ RunLife: Life.h RunLife.c++
 
 RunLife.tmp: RunLife
 	./RunLife < RunLife.in > RunLife.tmp
-	# diff RunLife.tmp RunLife.out
+	diff RunLife.tmp RunLife.out
 
 TestLife: Life.h TestLife.c++
 	$(CXX) $(CXXFLAGS) $(GCOVFLAGS) TestLife.c++ -o TestLife $(LDFLAGS)
