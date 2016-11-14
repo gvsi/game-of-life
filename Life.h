@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <gtest/gtest.h>
 
 #ifndef Life_h
 #define Life_h
@@ -19,6 +20,37 @@ friend ostream& operator <<(ostream& o, const AbstractCell& ac) {
   return ac.print(o);
 }
 protected:
+  FRIEND_TEST(ConwayCellFixture, testConstructor1);
+  FRIEND_TEST(ConwayCellFixture, testConstructor2);
+  FRIEND_TEST(ConwayCellFixture, testConstructor3);
+  FRIEND_TEST(ConwayCellFixture, testCopyConstructor1);
+  FRIEND_TEST(ConwayCellFixture, testCopyConstructor2);
+  FRIEND_TEST(ConwayCellFixture, testCopyConstructor3);
+  FRIEND_TEST(ConwayCellFixture, testEvolve1);
+  FRIEND_TEST(ConwayCellFixture, testEvolve2);
+  FRIEND_TEST(ConwayCellFixture, testEvolve3);
+  FRIEND_TEST(ConwayCellFixture, testClone1);
+  FRIEND_TEST(ConwayCellFixture, testClone2);
+  FRIEND_TEST(ConwayCellFixture, testClone3);
+  FRIEND_TEST(ConwayCellFixture, testCopyAssignment1);
+  FRIEND_TEST(ConwayCellFixture, testCopyAssignment2);
+  FRIEND_TEST(ConwayCellFixture, testCopyAssignment3);
+
+  FRIEND_TEST(FredkinCellFixture, testConstructor1);
+  FRIEND_TEST(FredkinCellFixture, testConstructor2);
+  FRIEND_TEST(FredkinCellFixture, testConstructor3);
+  FRIEND_TEST(FredkinCellFixture, testCopyConstructor1);
+  FRIEND_TEST(FredkinCellFixture, testCopyConstructor2);
+  FRIEND_TEST(FredkinCellFixture, testCopyConstructor3);
+  FRIEND_TEST(FredkinCellFixture, testEvolve1);
+  FRIEND_TEST(FredkinCellFixture, testEvolve2);
+  FRIEND_TEST(FredkinCellFixture, testEvolve3);
+  FRIEND_TEST(FredkinCellFixture, testClone1);
+  FRIEND_TEST(FredkinCellFixture, testClone2);
+  FRIEND_TEST(FredkinCellFixture, testClone3);
+  FRIEND_TEST(FredkinCellFixture, testCopyAssignment1);
+  FRIEND_TEST(FredkinCellFixture, testCopyAssignment2);
+  FRIEND_TEST(FredkinCellFixture, testCopyAssignment3);
   bool _alive;
   char _symbol;
 public:
@@ -90,10 +122,6 @@ public:
 
   ostream& print(ostream& o) const {
     return o << _symbol;
-  };
-
-  ~ConwayCell()
-  {
   };
 };
 
@@ -219,9 +247,6 @@ private:
   vector<vector<int>> _neighborCounts;
   int _generation, _population;
 public:
-  bool dummy () {
-    return true;}
-
   Life(istream& input, int rows, int cols) :
   _grid(vector<vector<T>>(rows, vector<T>(cols))),
   _neighborCounts(vector<vector<int>>(rows, vector<int>(cols, 0))),
