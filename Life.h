@@ -51,18 +51,55 @@ protected:
   FRIEND_TEST(FredkinCellFixture, testCopyAssignment1);
   FRIEND_TEST(FredkinCellFixture, testCopyAssignment2);
   FRIEND_TEST(FredkinCellFixture, testCopyAssignment3);
+  /**
+   * @brief Whether the cell is alive or not
+  */
   bool _alive;
+  /**
+   * @brief The symbol representation of the cell and its status
+  */
   char _symbol;
 public:
+  /**
+   * Constructs an AbstractCell
+   * @param alive a bool representing whether the Cell is alive or not
+  */
   AbstractCell(bool alive) :
     _alive(alive),
     _symbol('/')
   {};
+  /**
+   * Increments the value at row, col in neighborCounts if the cell is alive
+   * @param neighborCounts a grid containing the count of neighbors that are alive
+   * @param row an int representing the row of the cell
+   * @param col an int representing the col of the cell
+  */
   virtual void flag(vector<vector<int>>& neighborCounts, int row, int col) = 0;
+  /**
+   * Evolves the cell following the cell's logic
+   * @param n an int representing the count of alive neighbors
+   * @param pop a reference to an int holding the population count
+  */
   virtual bool evolve(int n, int& pop) = 0;
+  /**
+   * Calculates whether the cell is alive or not, based on the symbol
+   * @return a bool representing whether the cell is alive or not
+  */
   virtual bool calculateStatus() const = 0;
+  /**
+   * Creates a clone of the cell
+   * @return a pointer of the clone in the heap
+  */
   virtual AbstractCell* clone() const = 0;
+  /**
+   * Destructs the cell
+  */
   virtual ~AbstractCell() {};
+  /**
+   * Prints the cell's symbol to an ostream
+   * @param o an ostream to which the symbol is printed
+   * @return the ostream
+  */
   virtual ostream& print(ostream& o) const = 0;
 };
 
@@ -130,6 +167,9 @@ friend ostream& operator <<(ostream& o, const FredkinCell& fc) {
   return fc.print(o);
 }
 private:
+  /**
+   * @brief The age of the FredkinCell
+  */
   int _age;
 public:
   FredkinCell(bool alive = false) :
@@ -196,33 +236,62 @@ class Cell {
 private:
   AbstractCell* _p;
 public:
-
+  /**
+   * Constructs the Cell, wrapping nothing (nullptr)
+  */
   Cell() :
   	_p(nullptr)
   {};
 
+  /**
+   * Constructs a cell wrapping an AbstractCell
+   * @param p a pointer to an AbstractCell in the heap
+  */
   Cell(AbstractCell* p) :
     _p(p)
   {};
 
+  /**
+   * Constructs a copy of a Cell
+   * @param rhs a constant reference to the Cell to copy
+  */
   Cell(const Cell& rhs) :
   	_p(rhs._p == nullptr? nullptr : rhs._p->clone())
   {};
 
+  /**
+   * Copy-assigns a Cell
+   * @param ac a constant reference to the cell to copy
+  */
   Cell& operator = (const Cell& ac) {
   	_p = ac._p->clone();
   	return *this;
   };
 
+  /**
+   * Calculates whether the wrapped cell is alive or not, based on the symbol
+   * @return a bool representing whether the cell is alive or not
+  */
   bool calculateStatus() const {
     return _p->calculateStatus();
   }
 
+  /**
+   * Increments the value at row, col in neighborCounts if the wrapped cell is alive
+   * @param neighborCounts a grid containing the count of neighbors that are alive
+   * @param row an int representing the row of the cell
+   * @param col an int representing the col of the cell
+  */
   void flag(vector<vector<int>>& neighborCounts, int row, int col)
   {
     _p->flag(neighborCounts, row, col);
   }
 
+  /**
+   * Evolves the cell following the cell's logic
+   * @param n an int representing the count of alive neighbors
+   * @param pop a reference to an int holding the population count
+  */
   void evolve(int n, int& pop) {
     bool convert = _p->evolve(n, pop);
     if(convert) {
@@ -231,10 +300,19 @@ public:
     }
   }
 
+  /**
+   * Destructs the cell and deletes the wrapped cell from the heap
+  */
   ~Cell() {
     delete _p;
   };
 
+  /**
+   * Prints the wrapped cell's symbol to an ostream
+   * @param o an ostream to which the symbol is printed
+   * @param c the cell to print
+   * @return the ostream
+  */
   friend ostream& operator <<(ostream& o, const Cell& c) {
     return o << *(c._p);
   };
@@ -243,10 +321,29 @@ public:
 template <typename T>
 class Life {
 private:
+  /**
+   * @brief The grid holding the cells
+  */
   vector<vector<T>> _grid;
+  /**
+   * @brief The matrix holding the number of alive values for each cell
+  */
   vector<vector<int>> _neighborCounts;
-  int _generation, _population;
+  /**
+   * @brief The current generation number
+  */
+  int _generation;
+  /**
+   * @brief The population count
+  */
+  int _population;
 public:
+  /**
+   * Constructs a Life instance based on the input stream, the number of rows, and cols
+   * @param input an istream cointaining the grid disposition of cells
+   * @param rows an int representing the number of rows
+   * @param cols an int representing the number of cols
+  */
   Life(istream& input, int rows, int cols) :
   _grid(vector<vector<T>>(rows, vector<T>(cols))),
   _neighborCounts(vector<vector<int>>(rows, vector<int>(cols, 0))),
@@ -273,6 +370,12 @@ public:
     }
   };
 
+  /**
+   * Prints Life's generation, population and grid
+   * @param o an ostream to which Life is printed
+   * @param l a Life instance to print
+   * @return the ostream
+  */
   friend ostream& operator <<(ostream& o, const Life& l) {
     cout << "Generation = " << l._generation << ", Population = " << l._population << "." << endl;
     for (size_t r = 0; r < l._grid.size(); ++r) {
@@ -284,6 +387,9 @@ public:
     return o;
   };
 
+  /**
+   * Simulates one run of a generation in the grid
+  */
   void simulateGeneration() {
     _population = 0; // resets Population
 
