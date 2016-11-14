@@ -85,7 +85,7 @@ public:
   };
 
   AbstractCell* clone() const {
-  	return new ConwayCell(_alive);
+  	return new ConwayCell(*this);
   };
 
   ostream& print(ostream& o) const {
@@ -156,7 +156,7 @@ public:
   {};
 
   AbstractCell* clone() const {
-  	return new FredkinCell(_alive);
+  	return new FredkinCell(*this);
   };
 
   ostream& print(ostream& o) const {
