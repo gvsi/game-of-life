@@ -405,20 +405,20 @@ public:
 
           if (r-1 >= 0) // top
             _neighborCounts[r-1][c] += 1;
-          if (c+1 <= _grid[0].size() - 1) // right
+          if (c+1 <= (int)_grid[0].size() - 1) // right
             _neighborCounts[r][c+1] += 1;
-          if (r+1 <= _grid.size() - 1) // bottom
+          if (r+1 <= (int)_grid.size() - 1) // bottom
             _neighborCounts[r+1][c] += 1;
           if (c-1 >= 0) // left
             _neighborCounts[r][c-1] += 1;
 
           if (r-1 >= 0 && c-1 >= 0) // top left
             _grid[r-1][c-1].flag(_neighborCounts, r-1, c-1);
-          if (r-1 >= 0 && c+1 <= _grid[0].size() - 1) // top right
+          if (r-1 >= 0 && c+1 <= (int)_grid[0].size() - 1) // top right
             _grid[r-1][c+1].flag(_neighborCounts, r-1, c+1);
-          if (r+1 <= _grid.size() - 1 && c+1 <= _grid[0].size() - 1) // bottom right
+          if (r+1 <= (int)_grid.size() - 1 && c+1 <= (int)_grid[0].size() - 1) // bottom right
             _grid[r+1][c+1].flag(_neighborCounts, r+1, c+1);
-          if (r+1 <= _grid.size() - 1 && c-1 >= 0) // bottom left
+          if (r+1 <= (int)_grid.size() - 1 && c-1 >= 0) // bottom left
             _grid[r+1][c-1].flag(_neighborCounts, r+1, c-1);
         }
       }
