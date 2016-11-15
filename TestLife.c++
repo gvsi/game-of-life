@@ -142,19 +142,19 @@ TEST(ConwayCellFixture, testConstructor3) {
 }
 
 TEST(ConwayCellFixture, testCopyConstructor1) {
-  ConwayCell* c = new ConwayCell(true);
+  ConwayCell c(true);
   ConwayCell c2(c);
   ASSERT_TRUE(c2._alive);
 }
 
 TEST(ConwayCellFixture, testCopyConstructor2) {
-  ConwayCell* c = new ConwayCell(true);
+  ConwayCell c(true);
   ConwayCell c2(c);
   ASSERT_EQ(c2._symbol, '*');
 }
 
 TEST(ConwayCellFixture, testCopyConstructor3) {
-  ConwayCell* c = new ConwayCell(false);
+  ConwayCell c(false);
   ConwayCell c2(c);
   ASSERT_EQ(c2._symbol, '.');
 }
@@ -225,11 +225,9 @@ TEST(ConwayCellFixture, testCalculateStatus3) {
 }
 
 TEST(ConwayCellFixture, testClone1) {
-  ConwayCell* c = new ConwayCell(true);
-  AbstractCell* c2 = c->clone();
-  delete c;
-  ASSERT_TRUE(c2->_alive);
-  delete c2;
+  ConwayCell c(true);
+  ConwayCell* c3 = dynamic_cast<ConwayCell*>(c.clone());
+  ASSERT_TRUE(c3->_alive);
 }
 
 TEST(ConwayCellFixture, testClone2) {
@@ -316,19 +314,19 @@ TEST(FredkinCellFixture, testConstructor3) {
 }
 
 TEST(FredkinCellFixture, testCopyConstructor1) {
-  FredkinCell* c = new FredkinCell(true);
+  FredkinCell c(true);
   FredkinCell c2(c);
   ASSERT_TRUE(c2._alive);
 }
 
 TEST(FredkinCellFixture, testCopyConstructor2) {
-  FredkinCell* c = new FredkinCell(true);
+  FredkinCell c(true);
   FredkinCell c2(c);
   ASSERT_EQ(c2._symbol, '0');
 }
 
 TEST(FredkinCellFixture, testCopyConstructor3) {
-  FredkinCell* c = new FredkinCell(false);
+  FredkinCell c(false);
   FredkinCell c2(c);
   ASSERT_EQ(c2._symbol, '-');
 }
@@ -396,29 +394,6 @@ TEST(FredkinCellFixture, testCalculateStatus3) {
   c.evolve(2, pop);
 
   ASSERT_FALSE(c.calculateStatus());
-}
-
-TEST(FredkinCellFixture, testClone1) {
-  FredkinCell* c = new FredkinCell(true);
-  //AbstractCell* c2 = c->clone();
-  ASSERT_TRUE(c->clone()->_alive);
-  delete c;
-}
-
-TEST(FredkinCellFixture, testClone2) {
-  FredkinCell* c = new FredkinCell(true);
-  AbstractCell* c2 = c->clone();
-  delete c;
-  ASSERT_EQ(c2->_symbol, '0');
-  delete c2;
-}
-
-TEST(FredkinCellFixture, testClone3) {
-  FredkinCell* c = new FredkinCell(false);
-  AbstractCell* c2 = c->clone();
-  delete c;
-  ASSERT_EQ(c2->_symbol, '-');
-  delete c2;
 }
 
 TEST(FredkinCellFixture, testCopyAssignment1) {
