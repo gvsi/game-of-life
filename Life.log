@@ -1,3 +1,22 @@
+commit 7aa4b79164d39d331972ac8f96f2877d5b5817af
+Merge: 52691a0 c4af515
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Wed Nov 16 12:34:29 2016 -0600
+
+    Merge branch 'master' of https://github.com/gvsi/life-gca385
+
+commit 52691a09071934ea37a374334dfff0ab201ecce8
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Wed Nov 16 12:33:42 2016 -0600
+
+    Updated TestLife.out
+
+commit c4af515719cb9378286bdcb32b9a697c2c24baaf
+Author: gvsi <me@giovannialcantara.com>
+Date:   Wed Nov 16 12:24:53 2016 -0600
+
+    Add HTML files, add Log
+
 commit cc2b561a3029e20f68e39dcaac4d0b62e493356c
 Merge: f09c380 a618144
 Author: Hadi Gharizi <hadighar@cs.utexas.edu>
