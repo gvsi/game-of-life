@@ -1,38 +1,212 @@
-==41100== Memcheck, a memory error detector
-==41100== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==41100== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
-==41100== Command: ./TestLife
-==41100==
---41100-- run: /usr/bin/dsymutil "./TestLife"
+==27135== Memcheck, a memory error detector
+==27135== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==27135== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
+==27135== Command: ./TestLife
+==27135== 
 Running main() from gtest_main.cc
-[==========] Running 1 test from 1 test case.
+[==========] Running 84 tests from 4 test cases.
 [----------] Global test environment set-up.
-[----------] 1 test from LifeFixture
-[ RUN      ] LifeFixture.test
-[       OK ] LifeFixture.test (14 ms)
-[----------] 1 test from LifeFixture (25 ms total)
+[----------] 12 tests from LifeFixture
+[ RUN      ] LifeFixture.constructor1
+[       OK ] LifeFixture.constructor1 (60 ms)
+[ RUN      ] LifeFixture.constructor2
+[       OK ] LifeFixture.constructor2 (3 ms)
+[ RUN      ] LifeFixture.constructor3
+[       OK ] LifeFixture.constructor3 (29 ms)
+[ RUN      ] LifeFixture.constructor4
+[       OK ] LifeFixture.constructor4 (34 ms)
+[ RUN      ] LifeFixture.constructor5
+[       OK ] LifeFixture.constructor5 (3 ms)
+[ RUN      ] LifeFixture.constructor6
+[       OK ] LifeFixture.constructor6 (3 ms)
+[ RUN      ] LifeFixture.simulateGeneration1
+[       OK ] LifeFixture.simulateGeneration1 (9 ms)
+[ RUN      ] LifeFixture.simulateGeneration2
+[       OK ] LifeFixture.simulateGeneration2 (8 ms)
+[ RUN      ] LifeFixture.simulateGeneration3
+[       OK ] LifeFixture.simulateGeneration3 (9 ms)
+[ RUN      ] LifeFixture.simulateGeneration4
+[       OK ] LifeFixture.simulateGeneration4 (4 ms)
+[ RUN      ] LifeFixture.simulateGeneration5
+[       OK ] LifeFixture.simulateGeneration5 (3 ms)
+[ RUN      ] LifeFixture.simulateGeneration6
+[       OK ] LifeFixture.simulateGeneration6 (4 ms)
+[----------] 12 tests from LifeFixture (176 ms total)
+
+[----------] 24 tests from ConwayCellFixture
+[ RUN      ] ConwayCellFixture.testConstructor1
+[       OK ] ConwayCellFixture.testConstructor1 (2 ms)
+[ RUN      ] ConwayCellFixture.testConstructor2
+[       OK ] ConwayCellFixture.testConstructor2 (3 ms)
+[ RUN      ] ConwayCellFixture.testConstructor3
+[       OK ] ConwayCellFixture.testConstructor3 (2 ms)
+[ RUN      ] ConwayCellFixture.testCopyConstructor1
+[       OK ] ConwayCellFixture.testCopyConstructor1 (2 ms)
+[ RUN      ] ConwayCellFixture.testCopyConstructor2
+[       OK ] ConwayCellFixture.testCopyConstructor2 (2 ms)
+[ RUN      ] ConwayCellFixture.testCopyConstructor3
+[       OK ] ConwayCellFixture.testCopyConstructor3 (2 ms)
+[ RUN      ] ConwayCellFixture.testFlag1
+[       OK ] ConwayCellFixture.testFlag1 (5 ms)
+[ RUN      ] ConwayCellFixture.testFlag2
+[       OK ] ConwayCellFixture.testFlag2 (4 ms)
+[ RUN      ] ConwayCellFixture.testFlag3
+[       OK ] ConwayCellFixture.testFlag3 (4 ms)
+[ RUN      ] ConwayCellFixture.testEvolve1
+[       OK ] ConwayCellFixture.testEvolve1 (2 ms)
+[ RUN      ] ConwayCellFixture.testEvolve2
+[       OK ] ConwayCellFixture.testEvolve2 (2 ms)
+[ RUN      ] ConwayCellFixture.testEvolve3
+[       OK ] ConwayCellFixture.testEvolve3 (2 ms)
+[ RUN      ] ConwayCellFixture.testCalculateStatus1
+[       OK ] ConwayCellFixture.testCalculateStatus1 (2 ms)
+[ RUN      ] ConwayCellFixture.testCalculateStatus2
+[       OK ] ConwayCellFixture.testCalculateStatus2 (2 ms)
+[ RUN      ] ConwayCellFixture.testCalculateStatus3
+[       OK ] ConwayCellFixture.testCalculateStatus3 (3 ms)
+[ RUN      ] ConwayCellFixture.testClone1
+[       OK ] ConwayCellFixture.testClone1 (2 ms)
+[ RUN      ] ConwayCellFixture.testClone2
+[       OK ] ConwayCellFixture.testClone2 (2 ms)
+[ RUN      ] ConwayCellFixture.testClone3
+[       OK ] ConwayCellFixture.testClone3 (3 ms)
+[ RUN      ] ConwayCellFixture.testCopyAssignment1
+[       OK ] ConwayCellFixture.testCopyAssignment1 (2 ms)
+[ RUN      ] ConwayCellFixture.testCopyAssignment2
+[       OK ] ConwayCellFixture.testCopyAssignment2 (3 ms)
+[ RUN      ] ConwayCellFixture.testCopyAssignment3
+[       OK ] ConwayCellFixture.testCopyAssignment3 (2 ms)
+[ RUN      ] ConwayCellFixture.testPrint1
+[       OK ] ConwayCellFixture.testPrint1 (3 ms)
+[ RUN      ] ConwayCellFixture.testPrint2
+[       OK ] ConwayCellFixture.testPrint2 (2 ms)
+[ RUN      ] ConwayCellFixture.testPrint3
+[       OK ] ConwayCellFixture.testPrint3 (3 ms)
+[----------] 24 tests from ConwayCellFixture (64 ms total)
+
+[----------] 24 tests from FredkinCellFixture
+[ RUN      ] FredkinCellFixture.testConstructor1
+[       OK ] FredkinCellFixture.testConstructor1 (2 ms)
+[ RUN      ] FredkinCellFixture.testConstructor2
+[       OK ] FredkinCellFixture.testConstructor2 (2 ms)
+[ RUN      ] FredkinCellFixture.testConstructor3
+[       OK ] FredkinCellFixture.testConstructor3 (2 ms)
+[ RUN      ] FredkinCellFixture.testCopyConstructor1
+[       OK ] FredkinCellFixture.testCopyConstructor1 (2 ms)
+[ RUN      ] FredkinCellFixture.testCopyConstructor2
+[       OK ] FredkinCellFixture.testCopyConstructor2 (2 ms)
+[ RUN      ] FredkinCellFixture.testCopyConstructor3
+[       OK ] FredkinCellFixture.testCopyConstructor3 (2 ms)
+[ RUN      ] FredkinCellFixture.testFlag1
+[       OK ] FredkinCellFixture.testFlag1 (4 ms)
+[ RUN      ] FredkinCellFixture.testFlag2
+[       OK ] FredkinCellFixture.testFlag2 (3 ms)
+[ RUN      ] FredkinCellFixture.testFlag3
+[       OK ] FredkinCellFixture.testFlag3 (4 ms)
+[ RUN      ] FredkinCellFixture.testEvolve1
+[       OK ] FredkinCellFixture.testEvolve1 (2 ms)
+[ RUN      ] FredkinCellFixture.testEvolve2
+[       OK ] FredkinCellFixture.testEvolve2 (2 ms)
+[ RUN      ] FredkinCellFixture.testEvolve3
+[       OK ] FredkinCellFixture.testEvolve3 (3 ms)
+[ RUN      ] FredkinCellFixture.testCalculateStatus1
+[       OK ] FredkinCellFixture.testCalculateStatus1 (2 ms)
+[ RUN      ] FredkinCellFixture.testCalculateStatus2
+[       OK ] FredkinCellFixture.testCalculateStatus2 (2 ms)
+[ RUN      ] FredkinCellFixture.testCalculateStatus3
+[       OK ] FredkinCellFixture.testCalculateStatus3 (3 ms)
+[ RUN      ] FredkinCellFixture.testClone1
+[       OK ] FredkinCellFixture.testClone1 (2 ms)
+[ RUN      ] FredkinCellFixture.testClone2
+[       OK ] FredkinCellFixture.testClone2 (3 ms)
+[ RUN      ] FredkinCellFixture.testClone3
+[       OK ] FredkinCellFixture.testClone3 (2 ms)
+[ RUN      ] FredkinCellFixture.testCopyAssignment1
+[       OK ] FredkinCellFixture.testCopyAssignment1 (2 ms)
+[ RUN      ] FredkinCellFixture.testCopyAssignment2
+[       OK ] FredkinCellFixture.testCopyAssignment2 (2 ms)
+[ RUN      ] FredkinCellFixture.testCopyAssignment3
+[       OK ] FredkinCellFixture.testCopyAssignment3 (2 ms)
+[ RUN      ] FredkinCellFixture.testPrint1
+[       OK ] FredkinCellFixture.testPrint1 (2 ms)
+[ RUN      ] FredkinCellFixture.testPrint2
+[       OK ] FredkinCellFixture.testPrint2 (2 ms)
+[ RUN      ] FredkinCellFixture.testPrint3
+[       OK ] FredkinCellFixture.testPrint3 (4 ms)
+[----------] 24 tests from FredkinCellFixture (62 ms total)
+
+[----------] 24 tests from CellFixture
+[ RUN      ] CellFixture.constructor1
+[       OK ] CellFixture.constructor1 (2 ms)
+[ RUN      ] CellFixture.constructor2
+[       OK ] CellFixture.constructor2 (3 ms)
+[ RUN      ] CellFixture.constructor3
+[       OK ] CellFixture.constructor3 (3 ms)
+[ RUN      ] CellFixture.evolve1
+[       OK ] CellFixture.evolve1 (2 ms)
+[ RUN      ] CellFixture.evolve2
+[       OK ] CellFixture.evolve2 (2 ms)
+[ RUN      ] CellFixture.evolve3
+[       OK ] CellFixture.evolve3 (3 ms)
+[ RUN      ] CellFixture.evolve4
+[       OK ] CellFixture.evolve4 (3 ms)
+[ RUN      ] CellFixture.evolve5
+[       OK ] CellFixture.evolve5 (2 ms)
+[ RUN      ] CellFixture.evolve6
+[       OK ] CellFixture.evolve6 (2 ms)
+[ RUN      ] CellFixture.evolve7
+[       OK ] CellFixture.evolve7 (2 ms)
+[ RUN      ] CellFixture.evolve8
+[       OK ] CellFixture.evolve8 (3 ms)
+[ RUN      ] CellFixture.evolve9
+[       OK ] CellFixture.evolve9 (5 ms)
+[ RUN      ] CellFixture.calculateStatus1
+[       OK ] CellFixture.calculateStatus1 (3 ms)
+[ RUN      ] CellFixture.calculateStatus2
+[       OK ] CellFixture.calculateStatus2 (3 ms)
+[ RUN      ] CellFixture.calculateStatus3
+[       OK ] CellFixture.calculateStatus3 (2 ms)
+[ RUN      ] CellFixture.calculateStatus4
+[       OK ] CellFixture.calculateStatus4 (2 ms)
+[ RUN      ] CellFixture.copyConstructor1
+[       OK ] CellFixture.copyConstructor1 (3 ms)
+[ RUN      ] CellFixture.copyConstructor2
+[       OK ] CellFixture.copyConstructor2 (3 ms)
+[ RUN      ] CellFixture.copyConstructor3
+[       OK ] CellFixture.copyConstructor3 (3 ms)
+[ RUN      ] CellFixture.copyConstructor4
+[       OK ] CellFixture.copyConstructor4 (3 ms)
+[ RUN      ] CellFixture.copyAssignment1
+[       OK ] CellFixture.copyAssignment1 (4 ms)
+[ RUN      ] CellFixture.copyAssignment2
+[       OK ] CellFixture.copyAssignment2 (3 ms)
+[ RUN      ] CellFixture.copyAssignment3
+[       OK ] CellFixture.copyAssignment3 (3 ms)
+[ RUN      ] CellFixture.copyAssignment4
+[       OK ] CellFixture.copyAssignment4 (4 ms)
+[----------] 24 tests from CellFixture (70 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test case ran. (67 ms total)
-[  PASSED  ] 1 test.
-==41100==
-==41100== HEAP SUMMARY:
-==41100==     in use at exit: 26,417 bytes in 196 blocks
-==41100==   total heap usage: 364 allocs, 168 frees, 182,465 bytes allocated
-==41100==
-==41100== LEAK SUMMARY:
-==41100==    definitely lost: 0 bytes in 0 blocks
-==41100==    indirectly lost: 0 bytes in 0 blocks
-==41100==      possibly lost: 2,064 bytes in 1 blocks
-==41100==    still reachable: 0 bytes in 0 blocks
-==41100==         suppressed: 24,353 bytes in 195 blocks
-==41100== Rerun with --leak-check=full to see details of leaked memory
-==41100==
-==41100== For counts of detected and suppressed errors, rerun with: -v
-==41100== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+[==========] 84 tests from 4 test cases ran. (400 ms total)
+[  PASSED  ] 84 tests.
+==27135== 
+==27135== HEAP SUMMARY:
+==27135==     in use at exit: 0 bytes in 0 blocks
+==27135==   total heap usage: 1,872 allocs, 1,872 frees, 206,598 bytes allocated
+==27135== 
+==27135== All heap blocks were freed -- no leaks are possible
+==27135== 
+==27135== For counts of detected and suppressed errors, rerun with: -v
+==27135== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+File 'Life.h'
+Lines executed:94.23% of 156
+Branches executed:83.93% of 224
+Taken at least once:65.18% of 224
+Calls executed:67.17% of 332
+Creating 'Life.h.gcov'
 File 'TestLife.c++'
-Lines executed:100.00% of 2
-Branches executed:52.94% of 17
-Taken at least once:23.53% of 17
-No calls
-TestLife.c++:creating 'TestLife.c++.gcov'
+Lines executed:100.00% of 433
+Branches executed:65.38% of 2172
+Taken at least once:32.69% of 2172
+Calls executed:56.16% of 2744
+Creating 'TestLife.c++.gcov'
