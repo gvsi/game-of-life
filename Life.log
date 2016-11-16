@@ -1,0 +1,193 @@
+commit cc2b561a3029e20f68e39dcaac4d0b62e493356c
+Merge: f09c380 a618144
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Wed Nov 16 12:20:15 2016 -0600
+
+    Merge branch 'master' of https://github.com/gvsi/life-gca385
+
+commit f09c3807be69690f5724d4467f76098a6927cd07
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Wed Nov 16 12:19:47 2016 -0600
+
+    Fixed warnings
+
+commit a618144db5d10ffb5afab87b5405fbadd1c1a5b1
+Merge: 82bb5fa 2131866
+Author: gvsi <me@giovannialcantara.com>
+Date:   Wed Nov 16 12:07:38 2016 -0600
+
+    Merge branch 'master' of github.com:gvsi/life-gca386
+
+commit 82bb5fa60fbe7410b5c0eb4e6693774e1a0a6d90
+Author: gvsi <me@giovannialcantara.com>
+Date:   Wed Nov 16 12:06:50 2016 -0600
+
+    Add UML diagram
+
+commit 21318664dc619d2a9f9a0861c9974c325aa66d7f
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Tue Nov 15 14:06:48 2016 -0600
+
+    Changed implementation
+
+commit 0c069467995ff862da0f618de56071da36d79994
+Author: gvsi <me@giovannialcantara.com>
+Date:   Mon Nov 14 16:49:01 2016 -0600
+
+    Cast ints
+
+commit b6dedea7b38319d3eafecde4b09f0aca24796bac
+Merge: 066fcb1 be747b0
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Mon Nov 14 16:43:46 2016 -0600
+
+    Merge branch 'master' of https://github.com/gvsi/life-gca386
+
+commit 066fcb17c83626ad4cd7ea40d0d62b76d33f08b5
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Mon Nov 14 16:43:08 2016 -0600
+
+    Documentation
+
+commit a76067123ba049dcb85468079f1ee7938cf8c6e8
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Mon Nov 14 16:41:30 2016 -0600
+
+    Fixed merge conflict
+
+commit 71ef95b898aca4c6f34b417834f54281436eb1a8
+Merge: ba46558 93ddcd5
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Mon Nov 14 16:40:47 2016 -0600
+
+    Fixed merge conflic
+
+commit be747b0a1185ca441ec9bcef1579982fd1d6e9ae
+Author: gvsi <me@giovannialcantara.com>
+Date:   Mon Nov 14 16:31:40 2016 -0600
+
+    Add documentation
+
+commit ba465588fc64bf84615360184d3fc50693e62ebc
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Mon Nov 14 15:37:46 2016 -0600
+
+    Added unit tests for Life and Cell
+
+commit 93ddcd53ace3f5c0aa92580995c4ad377b23e76f
+Author: gvsi <me@giovannialcantara.com>
+Date:   Mon Nov 14 15:30:30 2016 -0600
+
+    Add FRIEND_TESTs
+
+commit 5ea0cddd9653d60697138b7db2796418e23110ad
+Author: gvsi <me@giovannialcantara.com>
+Date:   Mon Nov 14 15:28:05 2016 -0600
+
+    Add unit tests for ConwayCells and FredkinCells
+
+commit 4e8e06754488be9d29f9dfa5c99b918133b95da7
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Mon Nov 14 14:12:14 2016 -0600
+
+    Fixed clone
+
+commit ac6eb7c9f9eb004291cf7340eb00852a2ecbf92e
+Author: gvsi <me@giovannialcantara.com>
+Date:   Mon Nov 14 14:06:59 2016 -0600
+
+    Update makefile
+
+commit d888478614733f2d3125d5e2217f696b118ffa31
+Author: gvsi <me@giovannialcantara.com>
+Date:   Sat Nov 12 18:06:04 2016 -0600
+
+    Fix spacing
+
+commit 45d25fd76f785dd3d59cb4582a3a73e9656484d9
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Sat Nov 12 17:54:29 2016 -0600
+
+    Fixed population issue, implemented Cell conversion
+
+commit 88c102adc84ef1a72c8a13195c2c6c6d91307fb9
+Author: gvsi <me@giovannialcantara.com>
+Date:   Sat Nov 12 17:27:48 2016 -0600
+
+    Add Cell acceptance test
+
+commit 39617c85ae324ed1edaa079530a21cd1f983ed7c
+Author: gvsi <me@giovannialcantara.com>
+Date:   Sat Nov 12 17:21:07 2016 -0600
+
+    Fix age persistance issue
+
+commit 62c527ec059c2ffd17734975df8f4c00b4af35de
+Merge: ccdc668 5223830
+Author: gvsi <me@giovannialcantara.com>
+Date:   Sat Nov 12 17:10:41 2016 -0600
+
+    Merge branch 'master' of github.com:gvsi/life-gca386
+    
+    # Conflicts:
+    #	Life.h
+
+commit 5223830aaacc30ce7f11309a566d83c34f1b2ea9
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Sat Nov 12 17:01:54 2016 -0600
+
+    Fixed mem leak
+
+commit ccdc668c21ed7b32d52214fc0b2a0cdfd2a39841
+Author: gvsi <me@giovannialcantara.com>
+Date:   Sat Nov 12 16:39:26 2016 -0600
+
+    Implement simulateGeneration and evolve logic, print acceptance tests for ConwayCells
+
+commit 7b5c13cb0c0c06c0f1926b62c223c59cb29f52db
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Sat Nov 12 15:25:50 2016 -0600
+
+    I don't even know anymore [ci skip]
+
+commit da8b8ba3f2369fd6dda2ed116e036585e6459914
+Author: gvsi <me@giovannialcantara.com>
+Date:   Fri Nov 11 17:35:54 2016 -0600
+
+    Add parsing and printing, broke cell stuff [ci skip]
+
+commit 4346276bc712bbaa7ab0d1ee36f28fdb596c6fd7
+Author: gvsi <me@giovannialcantara.com>
+Date:   Fri Nov 11 14:08:06 2016 -0600
+
+    Fix makefile input file read
+
+commit 66ed0bacad357642d752e220978e257512fef4ba
+Author: gvsi <me@giovannialcantara.com>
+Date:   Wed Nov 9 16:55:03 2016 -0600
+
+    Fix runtime error
+
+commit 6c543225101fb4a8122d02e0e9a1b10e4b185cfa
+Author: Hadi Gharizi <hadighar@cs.utexas.edu>
+Date:   Wed Nov 9 16:47:42 2016 -0600
+
+    Added Cell methods, broke stuff [ci skip]
+
+commit 5c8f5ba38406bbc5836dd9f141db353541a5d615
+Author: gvsi <me@giovannialcantara.com>
+Date:   Wed Nov 9 16:00:59 2016 -0600
+
+    Implement Life, AbstractCell, Cell
+
+commit 8367364ac69a7030f467b70541cd2d51eb7fd33e
+Author: gvsi <me@giovannialcantara.com>
+Date:   Wed Nov 9 14:18:59 2016 -0600
+
+    Add .travis.yml
+
+commit d1a55979a26a40297d29bf177898c859d04268b7
+Author: gvsi <me@giovannialcantara.com>
+Date:   Wed Nov 9 14:09:19 2016 -0600
+
+    first commit

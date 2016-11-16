@@ -245,9 +245,12 @@ public:
     _p(p)
   {};
 
-  Cell(const AbstractCell& rhs) : _p(rhs.clone()) {
-
-  };
+  /**
+   * Constructs a cell wrapping an AbstractCell
+   * @param p a reference to an AbstractCell
+  */
+  Cell(const AbstractCell& rhs) : _p(rhs.clone())
+  {};
 
   /**
    * Constructs a copy of a Cell
