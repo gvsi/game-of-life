@@ -227,23 +227,25 @@ TEST(ConwayCellFixture, testCalculateStatus3) {
 TEST(ConwayCellFixture, testClone1) {
   ConwayCell c(true);
   ConwayCell* c3 = dynamic_cast<ConwayCell*>(c.clone());
-  ASSERT_TRUE(c3->_alive);
+  bool alive = c3->_alive;
+  delete c3;
+  ASSERT_TRUE(alive);
 }
 
 TEST(ConwayCellFixture, testClone2) {
-  ConwayCell* c = new ConwayCell(true);
-  AbstractCell* c2 = c->clone();
-  delete c;
-  ASSERT_EQ(c2->_symbol, '*');
-  delete c2;
+  ConwayCell c(true);
+  ConwayCell* c3 = dynamic_cast<ConwayCell*>(c.clone());
+  char symbol = c3->_symbol;
+  delete c3;
+  ASSERT_EQ('*', symbol);
 }
 
 TEST(ConwayCellFixture, testClone3) {
-  ConwayCell* c = new ConwayCell(false);
-  AbstractCell* c2 = c->clone();
-  delete c;
-  ASSERT_EQ(c2->_symbol, '.');
-  delete c2;
+  ConwayCell c(false);
+  ConwayCell* c3 = dynamic_cast<ConwayCell*>(c.clone());
+  char symbol = c3->_symbol;
+  delete c3;
+  ASSERT_EQ('.', symbol);
 }
 
 TEST(ConwayCellFixture, testCopyAssignment1) {
@@ -394,6 +396,30 @@ TEST(FredkinCellFixture, testCalculateStatus3) {
   c.evolve(2, pop);
 
   ASSERT_FALSE(c.calculateStatus());
+}
+
+TEST(FredkinCellFixture, testClone1) {
+  FredkinCell c(true);
+  FredkinCell* c3 = dynamic_cast<FredkinCell*>(c.clone());
+  bool alive = c3->_alive;
+  delete c3;
+  ASSERT_TRUE(alive);
+}
+
+TEST(FredkinCellFixture, testClone2) {
+  FredkinCell c(true);
+  FredkinCell* c3 = dynamic_cast<FredkinCell*>(c.clone());
+  char symbol = c3->_symbol;
+  delete c3;
+  ASSERT_EQ('0', symbol);
+}
+
+TEST(FredkinCellFixture, testClone3) {
+  FredkinCell c(false);
+  FredkinCell* c3 = dynamic_cast<FredkinCell*>(c.clone());
+  char symbol = c3->_symbol;
+  delete c3;
+  ASSERT_EQ('-', symbol);
 }
 
 TEST(FredkinCellFixture, testCopyAssignment1) {
