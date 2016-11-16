@@ -114,11 +114,6 @@ public:
     _symbol = _alive? '*' : '.';
   };
 
-  ConwayCell(const ConwayCell* rhs) : AbstractCell(rhs->_alive) {
-    _symbol = rhs->_alive? '*' : '.';
-    delete rhs;
-  };
-
   void flag(vector<vector<int>>& neighborCounts, int row, int col) {
     neighborCounts[row][col] += 1;
   }
@@ -150,7 +145,7 @@ public:
     return *this;
   };
 
-  ConwayCell(const FredkinCell* rhs) : AbstractCell(false) {
+  ConwayCell(const FredkinCell& rhs) : AbstractCell(false) {
   };
 
   AbstractCell* clone() const {
@@ -177,11 +172,6 @@ public:
     _age(0)
   {
     _symbol = _alive? '0' : '-';
-  };
-
-  FredkinCell(const FredkinCell* rhs) : AbstractCell(rhs->_alive), _age(0) {
-    _symbol = rhs->_alive? '0' : '-';
-    delete rhs;
   };
 
   bool evolve(int n, int& pop) {
@@ -220,7 +210,7 @@ public:
     return;
   }
 
-  FredkinCell(const ConwayCell* rhs) : AbstractCell(false), _age(0)
+  FredkinCell(const ConwayCell& rhs) : AbstractCell(false), _age(0)
   {};
 
   AbstractCell* clone() const {
@@ -254,6 +244,10 @@ public:
   Cell(AbstractCell* p) :
     _p(p)
   {};
+
+  Cell(const AbstractCell& rhs) : _p(rhs.clone()) {
+
+  };
 
   /**
    * Constructs a copy of a Cell
@@ -361,14 +355,14 @@ public:
         input >> t;
 
         if (t == '.') {
-          _grid[r][c] = T(new ConwayCell(false));
+          _grid[r][c] = T(ConwayCell(false));
         } else if (t == '*') {
-          _grid[r][c] = T(new ConwayCell(true));
+          _grid[r][c] = T(ConwayCell(true));
           ++_population;
         } else if (t == '-') {
-          _grid[r][c] = T(new FredkinCell(false));
+          _grid[r][c] = T(FredkinCell(false));
         } else {
-          _grid[r][c] = T(new FredkinCell(true));
+          _grid[r][c] = T(FredkinCell(true));
           ++_population;
         }
       }
